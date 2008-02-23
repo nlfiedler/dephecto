@@ -3,7 +3,106 @@ DEPHECTO TASK LIST (-*- text -*-)
 $Id: $
 
 - Define database schema
+  - users
+    - login
+    - email
+    - full name
+    - disabled :boolean
+    - admin :boolean
   - projects
-    - has_many :issues
-  - issues
+    - has_many :components
+    - defaultmilestone
+    - name
+    - description
+    - archived (no new entries)
+    - votesperuser
+    - votestoconfirm
+  - components
     - belongs_to :project
+    - has_many :issues
+    - description
+    - default assignee
+    - name
+  - issues
+    - belongs_to :component
+    - has_many :comments
+    - has_many :votes
+    - has_many :tags
+    - has_one :status
+    - has_one :severity
+    - has_one :resolution
+    - has_one :type
+    - has_one :milestone
+    - has_one :version
+    - assignee
+    - reporter
+    - summary
+    - description => stored as a comment
+    - due_date
+  - resolutions
+    - sortkey
+    - value
+      (fixed, invalid, wontfix, duplicate, worksforme, later)
+    - archived
+  - status
+    - sortkey
+    - value
+      (unconfirmed, new, assigned, reopened, resolved, verified, closed)
+    - archived
+  - severities
+    - sortkey
+    - value
+      (blocker, critical, major, minor, trivial)
+    - archived
+  - types
+    - sortkey
+    - value
+      (defect, improvement, feature)
+    - archived
+  - comments
+    - belongs_to :issue
+    - datestamp
+    - user
+    - comment
+    - type (for generated comments)
+  - votes
+    - belongs_to :issue
+    - user
+    - count (how many votes user applied to issue)
+  - milestones
+    - belongs_to :project
+    - value
+    - sort key for ordering in UI
+    - assigned dates for ordering in search results
+  - versions
+    - belongs_to :project
+    - value
+  - attachments
+    (store attachment data in separate table)
+    - belongs_to :issue
+    - user
+    - datestamp
+    - content type
+    - filename
+    - description
+    - archived
+  - tags
+    - belongs_to :issue
+    - value
+  - dependencies
+    - blocked by
+    - depends on
+  - duplicates
+    - dupe #
+    - dupe of
+  - history
+    - field changed
+    - added value of the new field value (as string)
+    - removed value if field value was deleted (as string)
+    - attachment ID, if a file was attached
+    - datestamp
+    - user
+  - cc or star
+    - users who want notification when issues change
+    - belongs_to :issue
+    - user
