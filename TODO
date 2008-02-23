@@ -1,0 +1,9 @@
+DEPHECTO TASK LIST (-*- text -*-)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$Id: $
+
+- Define database schema
+  - projects
+    - has_many :issues
+  - issues
+    - belongs_to :project
