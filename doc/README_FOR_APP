@@ -1,2 +1,7 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
-Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+DEPHECTO DOCUMENTATION (-*- text -*-)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Presently there is not much, if any, documentation. At some point either
+this file will be updated, or documentation will be provided via some
+other reasonable format, such as a wiki or HTML. Check the project web
+site for links to documentation.
