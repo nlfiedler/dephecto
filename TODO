@@ -4,30 +4,43 @@ $Id: $
 
 - Define database schema
   - users
-    - login
-    - email
+    - username
+    - hashed password
     - full name
-    - disabled :boolean
+    - email
+    - locked :boolean
     - admin :boolean
+    - created
+    - updated
   - projects
     - has_many :components
-    - defaultmilestone
+    - has_many :milestones
+    - has_many :versions
+    - default_milestone
     - name
     - description
-    - archived (no new entries)
-    - votesperuser
-    - votestoconfirm
+    - archived (no new entries allowed)
+    - votes_per_user
+    - votes_to_confirm
+    - created
+    - updated
   - components
     - belongs_to :project
     - has_many :issues
-    - description
-    - default assignee
     - name
+    - description
+    - default_assignee
+    - created
+    - updated
   - issues
     - belongs_to :component
     - has_many :comments
     - has_many :votes
     - has_many :tags
+    - has_many :watchers
+    - has_many :changes
+    - has_many :links
+    - has_many :attachments
     - has_one :status
     - has_one :severity
     - has_one :resolution
@@ -37,34 +50,37 @@ $Id: $
     - assignee
     - reporter
     - summary
-    - description => stored as a comment
+    - description => stored as first comment
     - due_date
+    - created
+    - updated
   - resolutions
-    - sortkey
+    - sort_key
     - value
       (fixed, invalid, wontfix, duplicate, worksforme, later)
     - archived
   - status
-    - sortkey
+    - sort_key
     - value
       (unconfirmed, new, assigned, reopened, resolved, verified, closed)
     - archived
   - severities
-    - sortkey
+    - sort_key
     - value
       (blocker, critical, major, minor, trivial)
     - archived
   - types
-    - sortkey
+    - sort_key
     - value
       (defect, improvement, feature)
     - archived
   - comments
     - belongs_to :issue
-    - datestamp
     - user
     - comment
     - type (for generated comments)
+    - created
+    - updated
   - votes
     - belongs_to :issue
     - user
@@ -72,37 +88,41 @@ $Id: $
   - milestones
     - belongs_to :project
     - value
-    - sort key for ordering in UI
-    - assigned dates for ordering in search results
+    - sort_key
+    - due_date
   - versions
     - belongs_to :project
     - value
   - attachments
-    (store attachment data in separate table)
     - belongs_to :issue
     - user
-    - datestamp
-    - content type
+    - mime_type
     - filename
     - description
-    - archived
+    - length
+    - archived (removed from the issue)
+    - attachment_data_id
+    - created
+    - updated
+  - attachment_data
+    - id
+    - blob
   - tags
     - belongs_to :issue
     - value
-  - dependencies
-    - blocked by
-    - depends on
-  - duplicates
-    - dupe #
-    - dupe of
-  - history
-    - field changed
-    - added value of the new field value (as string)
-    - removed value if field value was deleted (as string)
+  - links
+    - belongs_to :issue
+    - type (blocks, depends, related, duplicate)
+    - other_issue
+  - changes
+    - belongs_to :issue
+    - changed field
+    - changed value (as string)
+    - change type (add, remove, modify)
     - attachment ID, if a file was attached
     - datestamp
     - user
-  - cc or star
-    - users who want notification when issues change
+  - watchers
+    (users who want notification when issues change)
     - belongs_to :issue
     - user
