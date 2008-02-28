@@ -3,7 +3,11 @@
 one:
   id: 1
   username: neo
+  password: rabbit
+  email: neo@rabbit.org
 
 two:
   id: 2
   username: wot
+  password: oracle
+  email: wot@oracle.net

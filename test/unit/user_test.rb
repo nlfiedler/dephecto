@@ -18,8 +18,19 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  fixtures :users
+
+  def test_invalid_with_empty_attributes
+    user = User.new
+    assert !user.valid?
+    assert user.errors.invalid?(:username)
+  end
+
+  def test_unique_name
+    user = User.new(:username => users('one').username,
+      :password => 'foo', :email => 'neo@foo.com')
+    assert !user.save
+    assert_equal ActiveRecord::Errors.default_error_messages[:taken],
+      user.errors.on(:username)
   end
 end
