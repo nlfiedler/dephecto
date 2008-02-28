@@ -33,4 +33,12 @@ class UserTest < ActiveSupport::TestCase
     assert_equal ActiveRecord::Errors.default_error_messages[:taken],
       user.errors.on(:username)
   end
+
+  def test_authenticate
+    user = User.new(:username => 'tomtom', :password => 'foobar',
+      :email => 'tommy@example.com')
+    assert user.save
+    assert User.authenticate('tomtom', 'foobar')
+    assert !User.authenticate('tomtom', 'fubar')
+  end
 end

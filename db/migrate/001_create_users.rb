@@ -19,7 +19,8 @@ class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
       t.column :username, :string, :limit => 32
-      t.column :password, :string
+      # Password is hashed via lib/password.rb
+      t.column :password, :string, :limit => 192
       t.column :full_name, :string, :limit => 64
       t.column :email, :string
       t.column :locked, :boolean, :default => false

@@ -3,9 +3,6 @@ DEPHECTO TASK LIST (-*- text -*-)
 $Id: $
 
 - Implement models, tests
-  - User
-    - crypt password before storing
-      - copy from TopSecret
 
 - Define database schema
   - users

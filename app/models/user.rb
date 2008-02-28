@@ -18,5 +18,18 @@
 class User < ActiveRecord::Base
   validates_presence_of :username, :password, :email
   validates_uniqueness_of :username
-  # TODO: add method to crypt password before saving
+
+  # Checks login information against the database.
+  # Returns user if successful, nil otherwise.
+  def self.authenticate(username, password)
+    user = find(:first, :conditions => ["username = ?", username])
+    Password::check(password, user.password) ? user : nil
+  end
+
+  protected
+
+  # Hash the password before saving the record
+  def before_create
+    self.password = Password::update(self.password)
+  end
 end
