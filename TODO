@@ -2,23 +2,18 @@ DEPHECTO TASK LIST (-*- text -*-)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 $Id: $
 
+- Determine how to implement work flow
+  - If users can define custom status and resolutions, how does
+    Dephecto know what actions are to be permitted?
+  - The client could make these determinations, but it makes more
+    sense for the workflow to be defined in Dephecto.
 - Implement models, tests
 
 - Define database schema
-  - users
-    - username
-    - hashed password
-    - full name
-    - email
-    - locked :boolean
-    - admin :boolean
-    - created
-    - updated
   - projects
     - has_many :components
     - has_many :milestones
     - has_many :versions
-    - default_milestone
     - name
     - description
     - archived (no new entries allowed)
@@ -31,7 +26,6 @@ $Id: $
     - has_many :issues
     - name
     - description
-    - default_assignee
     - created
     - updated
   - issues
@@ -74,7 +68,7 @@ $Id: $
   - types
     - sort_key
     - value
-      (defect, improvement, feature)
+      (defect, improvement, feature, task)
     - archived
   - comments
     - belongs_to :issue
@@ -90,7 +84,6 @@ $Id: $
   - milestones
     - belongs_to :project
     - value
-    - sort_key
     - due_date
   - versions
     - belongs_to :project
